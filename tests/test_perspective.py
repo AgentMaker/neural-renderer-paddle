@@ -1,0 +1,17 @@
+import unittest
+
+import paddle
+import numpy as np
+
+import neural_renderer_paddle as nr
+
+class TestPerspective(unittest.TestCase):
+    def test_case1(self):
+        vertices = paddle.to_tensor(np.array([1,2,10], np.float32))
+        v_out = np.array([np.sqrt(3) / 10, 2 * np.sqrt(3) / 10, 10], np.float32)
+        vertices = vertices[None, None, :]
+        transformer = nr.perspective(vertices)
+        assert(np.allclose(transformer.squeeze().numpy(), v_out))
+
+if __name__ == '__main__':
+    unittest.main()
