@@ -6,7 +6,7 @@ A PaddlePaddle version of [Neural Renderer](https://github.com/hiroharu-kato/neu
 
 Run:
 ```sh
-pip install neural_renderer_paddle
+pip install neural-renderer-paddle
 ```
 
 ## Usage
