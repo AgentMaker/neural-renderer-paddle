@@ -16,6 +16,7 @@ def create_texture_image(textures, texture_size_out=16):
     face_nums = paddle.arange(num_faces)
     column = face_nums % tile_width
     row = face_nums / tile_width
+    texture_size_out = float(texture_size_out)
     vertices[:, 0, 0] = column * texture_size_out
     vertices[:, 0, 1] = row * texture_size_out
     vertices[:, 1, 0] = column * texture_size_out
@@ -27,8 +28,8 @@ def create_texture_image(textures, texture_size_out=16):
     textures = textures.cuda()
     image = create_texture_image_cuda.create_texture_image(vertices, textures, image, 1e-5)
     
-    vertices[:, :, 0] /= (image.shape[1] - 1)
-    vertices[:, :, 1] /= (image.shape[0] - 1)
+    vertices[:, :, 0] /= float(image.shape[1] - 1)
+    vertices[:, :, 1] /= float(image.shape[0] - 1)
     
     image = image.detach().cpu().numpy()
     vertices = vertices.detach().cpu().numpy()
