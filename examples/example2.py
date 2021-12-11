@@ -79,7 +79,8 @@ def main():
         loss = model()
         loss.backward()
         optimizer.step()
-        images = model.renderer(model.vertices, model.faces, mode='silhouettes')
+        with paddle.no_grad():
+            images = model.renderer(model.vertices, model.faces, mode='silhouettes')
         image = np.uint8(images.detach().cpu().numpy()[0].clip(0,1)*255)
         imsave('/tmp/_tmp_%04d.png' % i, image)
     make_gif(args.filename_output_optimization)
